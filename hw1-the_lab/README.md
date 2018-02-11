@@ -70,7 +70,7 @@ To create the Python Virtual Environment I used the following commands
 on my Ubuntu 14.04 LTS system:
 
 ```
-sudo apt-get install python-dev python3-dev libffi-dev libyaml-dev sshpass
+sudo apt-get install python-dev python3-dev libffi-dev libyaml-dev sshpass python-cffi
 virtualenv ansible
 source ansible/bin/activate
 pip install --upgrade setuptools
