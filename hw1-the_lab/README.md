@@ -69,7 +69,8 @@ Environment.
 To create the Python Virtual Environment I used the following commands
 on my Ubuntu 14.04 LTS system:
 
-```sudo apt-get install python-dev python3-dev libffi-dev libyaml-dev sshpass
+```
+sudo apt-get install python-dev python3-dev libffi-dev libyaml-dev sshpass
 virtualenv ansible
 source ansible/bin/activate
 pip install --upgrade setuptools
@@ -131,7 +132,8 @@ After creating an initial Ansible configuration
 [inventory](ansible/inventories/half_lab/) for the Half Lab, Ansible
 from the Virtual Python Environment can access the routers:
 
-```(ansible)auerswald@short:~/work/bnas2018/bnas2018-solutions/hw1-the_lab/ansible$ ansible OOB -m raw -v -a 'show clock'
+```
+(ansible)auerswald@short:~/work/bnas2018/bnas2018-solutions/hw1-the_lab/ansible$ ansible OOB -m raw -v -a 'show clock'
 Using /home/auerswald/work/bnas2018/bnas2018-solutions/hw1-the_lab/ansible/ansible.cfg as config file
 P2-oob.lab.local | SUCCESS | rc=0 >>
 
