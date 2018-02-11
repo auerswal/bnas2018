@@ -1,0 +1,34 @@
+#! /bin/bash
+
+set -u
+
+# iproute exits before its work is done, so add some sleeps... :(
+
+# create tap adapters and bridge for "OOB" staging network
+echo 'creating OOB management network...'
+sudo ip link add brOOB type bridge
+sudo ip link set dev brOOB up
+sudo ip addr add 192.168.254.42/24 dev brOOB
+for rtr in P{1..4} RR{1,2} PE{1..4} CE{1..4}; do
+  sudo ip tuntap add tap_OOB_"${rtr}" mode tap
+  sudo ip link set dev tap_OOB_"${rtr}" up
+  sudo ip link set dev tap_OOB_"${rtr}" master brOOB
+  sleep .1
+done
+
+# create tap adapter and bridge for in-band management
+sleep 1
+echo 'creating in-band management network...'
+sudo ip link add brPE1 type bridge
+sudo ip link set dev brPE1 up
+sudo ip addr add 172.16.254.42/24 dev brPE1
+sudo ip tuntap add tap_PE1 mode tap
+sudo ip link set dev tap_PE1 up
+sudo ip link set dev tap_PE1 master brPE1
+
+# route RFC 1918 addresses into lab
+sleep 1
+echo 'adding routes to virtual lab via in-band management interface...'
+sudo ip route add 10.0.0.0/8 via 172.16.254.1
+sudo ip route add 172.16.0.0/12 via 172.16.254.1
+sudo ip route add 192.168.0.0/16 via 172.16.254.1

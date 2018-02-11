@@ -1,0 +1,39 @@
+#! /bin/bash
+
+test "$(ps -o comm= -p "$PPID")" = "screen" ||
+  exec screen -- "$0"
+
+# ensure that the network devices used to connect to the virtual lab exist
+ip link show dev brOOB > /dev/null 2>&1 || {
+  echo 'Creating network devices for lab connectivity'
+  ./prepare_lab
+}
+
+LAB='bnas2018.dynagen'
+DWD=$(sed -nr '/workingdir/s/^[^=]+=[[:space:]]*(.*)$/\1/p' "$LAB")
+SWD="$PWD"
+
+echo 'starting DynaMIPS Hypervisor (listening on Port 7200)'
+mkdir -pv "$DWD"
+cd "$DWD"
+screen -t 'DynaMIPS Hypervisor' dynamips -H 7200 &
+cd "$SWD"
+# wait a second for possibly increased reliability...
+sleep 1
+echo 'Starting DynaGen with BNAS2018 lab configuration'
+screen -t 'DynaGen BNAS2018' dynagen "$LAB" &
+# wait a second for possibly increased reliability...
+sleep 1
+
+echo 'Waiting for DynaGen to stop'
+while pgrep -P "$PPID" dynagen >/dev/null 2>&1; do
+  sleep 1
+done
+echo 'Waiting for DynaMIPS to stop'
+while pgrep -P "$PPID" dynamips >/dev/null 2>&1; do
+  sleep 1
+done
+# remove network devices for lab connectivity
+echo 'Removing network devices for lab connectivity'
+./cleanup_lab
+echo 'Good bye'

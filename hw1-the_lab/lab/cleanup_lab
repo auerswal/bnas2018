@@ -1,0 +1,37 @@
+#! /bin/bash
+
+set -u
+
+# iproute exits before its work is done, so add some sleeps... :(
+
+# create tap adapters and bridge for "OOB" staging network
+echo 'deleting OOB management network...'
+for rtr in P{1..4} RR{1,2} PE{1..4} CE{1..4}; do
+  sudo ip link set dev tap_OOB_"${rtr}" nomaster
+  sudo ip link set dev tap_OOB_"${rtr}" down
+  sudo ip tuntap delete tap_OOB_"${rtr}" mode tap
+  sleep .1
+done
+sleep 1
+sudo ip addr del 192.168.254.42/24 dev brOOB
+sudo ip link set dev brOOB down
+sudo ip link delete brOOB type bridge
+
+# route RFC 1918 addresses into lab
+sleep 1
+echo 'removing routes to virtual lab via in-band management interface...'
+sudo ip route del 10.0.0.0/8 via 172.16.254.1
+sudo ip route del 172.16.0.0/12 via 172.16.254.1
+sudo ip route del 192.168.0.0/16 via 172.16.254.1
+
+# create tap adapter and bridge for in-band management
+sleep 1
+echo 'deleting in-band management network...'
+sudo ip link set dev tap_PE1 nomaster
+sudo ip link set dev tap_PE1 down
+sudo ip tuntap delete tap_PE1 mode tap
+sleep .5
+sudo ip addr del 172.16.254.42/24 dev brPE1
+sudo ip link set dev brPE1 down
+sudo ip link delete brPE1 type bridge
+

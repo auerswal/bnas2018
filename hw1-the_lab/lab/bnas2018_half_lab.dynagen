@@ -1,0 +1,68 @@
+[localhost]
+workingdir = /home/auerswald/work/bnas2018/dyna_work_dir
+
+[[7200]]
+image = /home/auerswald/work/cisco_lab/c7200-advipservicesk9-mz.152-4.S5.bin
+idlepc = 0x6318e57c
+
+[[ROUTER P1]]
+console = 2000
+slot1 = PA-FE-TX
+slot2 = PA-FE-TX
+slot3 = PA-FE-TX
+slot6 = PA-FE-TX
+f0/0 = NIO_tap:tap_OOB_P1
+f1/0 = P2 f1/0
+f2/0 = PE1 f2/0
+f6/0 = RR1 f6/0
+
+[[ROUTER P2]]
+console = 2001
+slot1 = PA-FE-TX
+slot2 = PA-FE-TX
+slot3 = PA-FE-TX
+f0/0 = NIO_tap:tap_OOB_P2
+# f1/0 = P1 f1/0
+f2/0 = PE2 f2/0
+
+[[ROUTER RR1]]
+console = 2004
+slot6 = PA-FE-TX
+f0/0 = NIO_tap:tap_OOB_RR1
+# f6/0 = P1 f6/0
+
+[[ROUTER PE1]]
+console = 2006
+slot1 = PA-FE-TX
+slot2 = PA-FE-TX
+slot3 = PA-FE-TX
+slot5 = PA-4E
+slot6 = PA-8E
+f0/0 = NIO_tap:tap_OOB_PE1
+# f2/0 = P1 f2/0
+e5/0 = NIO_tap:tap_PE1
+e6/1 = CE1 e1/0
+
+[[ROUTER PE2]]
+console = 2007
+slot1 = PA-FE-TX
+slot2 = PA-FE-TX
+slot3 = PA-FE-TX
+slot6 = PA-8E
+f0/0 = NIO_tap:tap_OOB_PE2
+# f2/0 = P2 f2/0
+e6/2 = CE2 e1/0
+
+[[ROUTER CE1]]
+console = 2010
+slot1 = PA-4E
+slot6 = PA-8E
+f0/0 = NIO_tap:tap_OOB_CE1
+# e1/0 = PE1 e6/1
+
+[[ROUTER CE2]]
+console = 2011
+slot1 = PA-4E
+slot6 = PA-8E
+f0/0 = NIO_tap:tap_OOB_CE2
+# e1/0 = PE2 e6/2

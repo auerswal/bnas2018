@@ -1,0 +1,14 @@
+[localhost]
+workingdir = /home/auerswald/work/bnas2018/dyna_work_dir
+
+[[7200]]
+image = /home/auerswald/work/cisco_lab/c7200-advipservicesk9-mz.152-4.S5.bin
+idlepc = 0x6318e57c
+
+[[ROUTER P1]]
+console = 2000
+slot1 = PA-FE-TX
+slot2 = PA-FE-TX
+slot3 = PA-FE-TX
+slot6 = PA-FE-TX
+f0/0 = NIO_tap:tap_OOB_P1

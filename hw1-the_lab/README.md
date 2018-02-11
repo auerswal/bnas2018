@@ -73,3 +73,15 @@ pre-staging configuration is applied via copy&paste to the router
 consoles. With this configuration, Ansible can connect to every router,
 which suffices for the first homework and provides a starting point for
 the upcoming hands-on exercises.
+
+## Lab Automation
+
+Not only is the virtual lab intended to learn network automation, starting
+and stopping it is automated as well. The script `start_lab` creates the
+GNU/Linux network devices needed to connect to the virtual lab and then
+starts GNU screen in which to start `dynamips` and `dynagen`. The script
+then waits for `dynagen` and `dynamips` to stop, after which it removes
+the GNU/Linux network devices it created. In order to debug this script
+I have used a minimalistic lab setup consisting of just one router.
+
+![one router topology for debugging](P1.png)
