@@ -1,0 +1,17 @@
+[OOB]
+P1-oob.lab.local ansible_host=192.168.254.1
+P2-oob.lab.local ansible_host=192.168.254.2
+PE1-oob.lab.local ansible_host=192.168.254.11
+PE2-oob.lab.local ansible_host=192.168.254.12
+RR1-oob.lab.local ansible_host=192.168.254.21
+CE1-oob.lab.local ansible_host=192.168.254.31
+CE2-oob.lab.local ansible_host=192.168.254.32
+
+[half_lab]
+P1.lab.local ansible_host=10.255.255.1
+P2.lab.local ansible_host=10.255.255.2
+PE1.lab.local ansible_host=10.255.255.11
+PE2.lab.local ansible_host=10.255.255.12
+RR1.lab.local ansible_host=10.255.255.21
+CE1.lab.local ansible_host=10.255.255.31
+CE2.lab.local ansible_host=10.255.255.32

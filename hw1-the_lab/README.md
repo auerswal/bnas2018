@@ -45,6 +45,8 @@ routers, two PE routers, one route reflector, and two CE routers.
 
 If I go with the smaller lab, I will just omit the second plane.
 
+**Update 2018-02-11** I do use the Half Lab.
+
 ![half lab topology](half_lab.png)
 
 The virtual lab is connected to my GNU/Linux laptop via two bridges,
@@ -63,6 +65,21 @@ The network automation tools run on my laptop, which uses GNU/Linux
 natively. To use the current Ansible (and potentially NAPALM and Salt
 Stack), the network automation tools are installed into a Python Virtual
 Environment.
+
+To create the Python Virtual Environment I used the following commands
+on my Ubuntu 14.04 LTS system:
+
+```sudo apt-get install python-dev python3-dev libffi-dev libyaml-dev sshpass
+virtualenv ansible
+source ansible/bin/activate
+pip install --upgrade setuptools
+pip install cffi
+pip install ansible
+```
+
+While in the Python Virtual Environment (`source ansible/bin/activate`),
+I can execute Ansible commands. The command `deactivate` is used to
+exit the Python Virtual Environment.
 
 ### Initial Lab Configuration
 
@@ -106,3 +123,54 @@ that connects to the router via the virtual console server provided by
 `dynamips`, reads the generated configuration file, applies it line by
 line, and then saves the configuration. All this can be found in the
 [pre-staging/](pre-staging/) directory.
+
+## Testing Ansible
+
+After creating an initial Ansible configuration
+[ansible.cfg](ansible/ansible.cfg) and the
+[inventory](ansible/inventories/half_lab/) for the Half Lab, Ansible
+from the Virtual Python Environment can access the routers:
+
+```(ansible)auerswald@short:~/work/bnas2018/bnas2018-solutions/hw1-the_lab/ansible$ ansible OOB -m raw -v -a 'show clock'
+Using /home/auerswald/work/bnas2018/bnas2018-solutions/hw1-the_lab/ansible/ansible.cfg as config file
+P2-oob.lab.local | SUCCESS | rc=0 >>
+
+*20:19:50.387 UTC Sun Feb 11 2018Shared connection to 192.168.254.2 closed.
+Connection to 192.168.254.2 closed by remote host.
+
+
+P1-oob.lab.local | SUCCESS | rc=0 >>
+
+*20:19:50.419 UTC Sun Feb 11 2018Shared connection to 192.168.254.1 closed.
+Connection to 192.168.254.1 closed by remote host.
+
+
+RR1-oob.lab.local | SUCCESS | rc=0 >>
+
+*20:19:51.335 UTC Sun Feb 11 2018Shared connection to 192.168.254.21 closed.
+Connection to 192.168.254.21 closed by remote host.
+
+
+PE2-oob.lab.local | SUCCESS | rc=0 >>
+
+*20:19:52.459 UTC Sun Feb 11 2018Shared connection to 192.168.254.12 closed.
+Connection to 192.168.254.12 closed by remote host.
+
+
+PE1-oob.lab.local | SUCCESS | rc=0 >>
+
+*20:19:43.095 UTC Sun Feb 11 2018Shared connection to 192.168.254.11 closed.
+Connection to 192.168.254.11 closed by remote host.
+
+
+CE1-oob.lab.local | SUCCESS | rc=0 >>
+
+*20:19:59.791 UTC Sun Feb 11 2018Shared connection to 192.168.254.31 closed.
+Connection to 192.168.254.31 closed by remote host.
+
+
+CE2-oob.lab.local | SUCCESS | rc=0 >>
+
+*20:19:59.955 UTC Sun Feb 11 2018Shared connection to 192.168.254.32 closed.
+Connection to 192.168.254.32 closed by remote host.
+```
