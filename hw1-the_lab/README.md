@@ -69,7 +69,7 @@ Environment.
 Since Ansible is supposed to be used via TCP/IP (instead of e.g. serial
 console), the lab routers need to be pre-provisioned with a basic
 configuration that provides IP connectivity and an SSH server. This
-pre-staging configuration is applied via copy&paste to the router
+pre-staging configuration can be applied via copy&paste to the router
 consoles. With this configuration, Ansible can connect to every router,
 which suffices for the first homework and provides a starting point for
 the upcoming hands-on exercises.
@@ -77,11 +77,32 @@ the upcoming hands-on exercises.
 ## Lab Automation
 
 Not only is the virtual lab intended to learn network automation, starting
-and stopping it is automated as well. The script `start_lab` creates the
-GNU/Linux network devices needed to connect to the virtual lab and then
-starts GNU screen in which to start `dynamips` and `dynagen`. The script
-then waits for `dynagen` and `dynamips` to stop, after which it removes
-the GNU/Linux network devices it created. In order to debug this script
-I have used a minimalistic lab setup consisting of just one router.
+and stopping it is automated as well. The virtual lab configuration and
+control scripts can be found in the [lab/](lab/) directory.
+
+### Starting the Lab
+
+The script `start_lab` creates the GNU/Linux network devices needed
+to connect to the virtual lab and then starts GNU screen in which to
+start `dynamips` and `dynagen`. The script then waits for `dynagen` and
+`dynamips` to stop, after which it removes the GNU/Linux network devices
+it created.
+
+#### Debugging
+
+In order to debug this script I have used a minimalistic lab setup
+consisting of just one router.
 
 ![one router topology for debugging](P1.png)
+
+### Creating and Deploying Pre-Provisioning Configuration
+
+The router configuration needed to connect via Ansible is generated via
+GNU `m4` from a template (`template.m4`) and a per-router definition file
+(`<ROUTER_NAME>.m4`) to specify both the router's name and IP address.
+Generation of the configuration files is contrlled using GNU `make`. To
+deploy the configuration to the routers I have written an `expect` script
+that connects to the router via the virtual console server provided by
+`dynamips`, reads the generated configuration file, applies it line by
+line, and then saves the configuration. All this can be found in the
+[pre-staging/](pre-staging/) directory.

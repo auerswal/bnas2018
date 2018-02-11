@@ -1,0 +1,84 @@
+#! /usr/bin/expect -f
+
+# Provision unconfigured Cisco IOS routers via console server.
+# Copyright (C) 2018 Erik Auerswald <auerswal@unix-ag.uni-kl.de>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+set SLASH [string last "/" "$argv0"]
+set LEN [string length "$argv0"]
+if {$SLASH >= 0} {
+  set PROG [string range "$argv0" $SLASH+1 $LEN-1]
+} else {
+  set PROG $argv0
+}
+
+if {$argc != 3} {
+  puts "Usage: $PROG HOST PORT CONFIG"
+  exit 1
+}
+
+set HOST [lrange $argv 0 0]
+set PORT [lrange $argv 1 1]
+set CONFIG [lrange $argv 2 2]
+
+if {![file exists $CONFIG]} {
+  puts "$PROG: error: configuration file '$CONFIG' does not exist"
+  exit 1
+}
+
+# connect to the router
+spawn telnet $HOST $PORT
+
+# enter enable mode of an unconfigured router
+expect {
+  -re {\[yes/no\]: $}           {send "no\r"; exp_continue}
+  -re {\(config(-[-a-z]*)?\)#$} {send "end\r"; exp_continue}
+  timeout                       {send "\r"; exp_continue}
+  -re {Router>$}                {send "enable\r"}
+  -re {Router#$}                {send "\r"}
+}
+
+# enter configuration mode
+expect {
+  -re {Router#$} {send "configure terminal\r"}
+  timeout        {send "\r"; exp_continue}
+}
+
+# read configuration file and send each line to the router
+set F [open $CONFIG r]
+while {[gets $F LINE] >= 0} {
+  expect {
+    -re {\(config(-[-a-z]*)?\)#$} {send "$LINE\r"}
+    timeout            {send "\r"; exp_continue}
+  }
+}
+
+# exit configuration mode
+expect {
+  -re {\(config(-[-a-z]*)?\)#$} {send "end\r"}
+  timeout            {send "\r"; exp_continue}
+}
+
+# save the configuration
+expect {
+  -re {[A-Z][a-z]*[0-9]*#} {send "wr\r"}
+  timeout                  {send "\r"; exp_continue}
+}
+
+# ensure that the last line of output is displayed
+expect {
+  -re {[A-Z][a-z]*[0-9]*#$} {puts {}}
+  timeout                   {send "\r"; exp_continue}
+}
