@@ -1,0 +1,55 @@
+[OOB]
+P1-oob.lab.local ansible_host=192.168.254.1
+P2-oob.lab.local ansible_host=192.168.254.2
+P3-oob.lab.local ansible_host=192.168.254.3
+P4-oob.lab.local ansible_host=192.168.254.4
+PE1-oob.lab.local ansible_host=192.168.254.11
+PE2-oob.lab.local ansible_host=192.168.254.12
+PE3-oob.lab.local ansible_host=192.168.254.13
+PE4-oob.lab.local ansible_host=192.168.254.14
+RR1-oob.lab.local ansible_host=192.168.254.21
+RR2-oob.lab.local ansible_host=192.168.254.22
+CE1-oob.lab.local ansible_host=192.168.254.31
+CE2-oob.lab.local ansible_host=192.168.254.32
+CE3-oob.lab.local ansible_host=192.168.254.33
+CE4-oob.lab.local ansible_host=192.168.254.34
+
+[P_OOB]
+P[1:4]-oob.lab.local
+
+[PE_OOB]
+PE[1:4]-oob.lab.local
+
+[RR_OOB]
+RR[1:2]-oob.lab.local
+
+[CE_OOB]
+CE[1:4]-oob.lab.local
+
+[lab]
+P1.lab.local ansible_host=10.255.255.1
+P2.lab.local ansible_host=10.255.255.2
+P3.lab.local ansible_host=10.255.255.3
+P4.lab.local ansible_host=10.255.255.4
+PE1.lab.local ansible_host=10.255.255.11
+PE2.lab.local ansible_host=10.255.255.12
+PE3.lab.local ansible_host=10.255.255.13
+PE4.lab.local ansible_host=10.255.255.14
+RR1.lab.local ansible_host=10.255.255.21
+RR2.lab.local ansible_host=10.255.255.22
+CE1.lab.local ansible_host=10.255.255.31
+CE2.lab.local ansible_host=10.255.255.32
+CE3.lab.local ansible_host=10.255.255.33
+CE4.lab.local ansible_host=10.255.255.34
+
+[P]
+P[1:4].lab.local
+
+[PE]
+PE[1:4].lab.local
+
+[RR]
+RR[1:2].lab.local
+
+[CE]
+CE[1:4].lab.local
