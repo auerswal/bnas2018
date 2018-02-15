@@ -21,8 +21,7 @@ be able to focus on the network automation part, instead of learning how
 to connect the Ansible automation framework to the chosen network devices.
 
 There even is upstream support in NAPALM to work with Cisco IOS based
-devices, thus this choice may allow me to explore NAPALM and Salt
-Stack, too.
+devices, thus this choice may allow me to explore NAPALM and Salt, too.
 
 Since early experiments suggest that the full lab topology I would like
 to use might be a bit too much for my trusty old laptop, especially with
@@ -49,11 +48,11 @@ If I go with the smaller lab, I will just omit the second plane.
 
 ![half lab topology](half_lab.png)
 
-The virtual lab is connected to my GNU/Linux laptop via two bridges,
+The virtual lab is connected to my GNU/Linux laptop via two bridges
 that connect to tap devices which connect to router interfaces. The first
 bridge, `brOOB`, is used to connect one interface of each router and
 the laptop to a shared Ethernet segment. This allows easy connectivity
-to the routers to provision a MPLS transport network, as could be done
+to the routers to provision an MPLS transport network, as could be done
 when staging new routers. After the infrastructure is available, `brPE1`
 connects the laptop and the PE1 router. The PE1 router then provides
 in-band connectivity to the loopback interfaces of all routers, which
@@ -62,8 +61,8 @@ shall be used to provision L3VPN services.
 ### Python Virtual Environment
 
 The network automation tools run on my laptop, which uses GNU/Linux
-natively. To use the current Ansible (and potentially NAPALM and Salt
-Stack), the network automation tools are installed into a Python Virtual
+natively. To use the current Ansible (and potentially NAPALM and Salt),
+the network automation tools are installed into a Python Virtual
 Environment.
 
 To create the Python Virtual Environment I used the following commands
@@ -118,7 +117,7 @@ consisting of just one router.
 The router configuration needed to connect via Ansible is generated via
 GNU `m4` from a template (`template.m4`) and a per-router definition file
 (`<ROUTER_NAME>.m4`) to specify both the router's name and IP address.
-Generation of the configuration files is contrlled using GNU `make`. To
+Generation of the configuration files is controlled using GNU `make`. To
 deploy the configuration to the routers I have written an `expect` script
 that connects to the router via the virtual console server provided by
 `dynamips`, reads the generated configuration file, applies it line by
@@ -128,12 +127,12 @@ line, and then saves the configuration. All this can be found in the
 ## Testing Ansible
 
 After creating an initial Ansible configuration
-[ansible.cfg](ansible/ansible.cfg) and the
+([ansible.cfg](ansible/ansible.cfg)) and the
 [inventory](ansible/inventories/half_lab/) for the Half Lab, Ansible
 from the Virtual Python Environment can access the routers:
 
 ```
-(ansible)auerswald@short:~/work/bnas2018/bnas2018-solutions/hw1-the_lab/ansible$ ansible OOB -m raw -v -a 'show clock'
+(ansible)$ ansible OOB -m raw -v -a 'show clock'
 Using /home/auerswald/work/bnas2018/bnas2018-solutions/hw1-the_lab/ansible/ansible.cfg as config file
 P2-oob.lab.local | SUCCESS | rc=0 >>
 
