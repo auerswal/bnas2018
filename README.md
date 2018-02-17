@@ -8,4 +8,4 @@ course during spring of 2018.
 
 ---
 
-[My home page](https://www.unix-ag.uni-kl.de/~auerswal/)
+[My GitHub user page](https://github.com/auerswal/) | [My home page](https://www.unix-ag.uni-kl.de/~auerswal/)
