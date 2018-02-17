@@ -192,3 +192,7 @@ Connection to 192.168.254.32 closed by remote host.
 * [Python Virtual Environments](https://www.python.org/dev/peps/pep-0405/)
 * [Salt](https://github.com/saltstack/salt)
 * [Ubuntu](https://www.ubuntu.com/)
+
+---
+
+https://github.com/auerswal/bnas2018/ | https://www.unix-ag.uni-kl.de/~auerswal/

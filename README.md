@@ -5,3 +5,7 @@ This is a repository for my solutions to hands-on assignments of the
 course during spring of 2018.
 
 * [Homework 1](hw1-the_lab) - Build the Lab
+
+---
+
+https://www.unix-ag.uni-kl.de/~auerswal/
