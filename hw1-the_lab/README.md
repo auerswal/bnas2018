@@ -175,3 +175,20 @@ CE2-oob.lab.local | SUCCESS | rc=0 >>
 *20:19:59.955 UTC Sun Feb 11 2018Shared connection to 192.168.254.32 closed.
 Connection to 192.168.254.32 closed by remote host.
 ```
+
+## References
+
+* [Ansible](https://www.ansible.com/)
+* [BGP/MPLS IP Virtual Private Networks (VPNs)](https://tools.ietf.org/html/rfc4364)
+* [Dynagen](https://sourceforge.net/projects/dyna-gen/)
+* [Dynamips](https://github.com/GNS3/dynamips/)
+* [Expect](https://core.tcl.tk/expect/)
+* [GNU M4](https://www.gnu.org/software/m4/)
+* [GNU Make](https://www.gnu.org/software/make/)
+* [GNU Screen](https://www.gnu.org/software/screen/)
+* [iproute2](https://git.kernel.org/pub/scm/network/iproute2/iproute2.git/)
+* [Linux Bridge](https://wiki.linuxfoundation.org/networking/bridge)
+* [NAPALM](https://napalm-automation.net/)
+* [Python Virtual Environments](https://www.python.org/dev/peps/pep-0405/)
+* [Salt](https://github.com/saltstack/salt)
+* [Ubuntu](https://www.ubuntu.com/)
