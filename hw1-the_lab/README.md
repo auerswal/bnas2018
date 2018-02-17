@@ -99,11 +99,11 @@ control scripts can be found in the [lab/](lab/) directory.
 
 ### Starting the Lab
 
-The script `start_lab` creates the GNU/Linux network devices needed
-to connect to the virtual lab and then starts GNU `screen` in which to
-start `dynamips` and `dynagen`. The script then waits for `dynagen` and
-`dynamips` to stop, after which it removes the GNU/Linux network devices
-it created.
+The script [`start_lab`](lab/start_lab) creates the GNU/Linux network
+devices needed to connect to the virtual lab and then starts GNU `screen`
+in which to start `dynamips` and `dynagen`. The script then waits for
+`dynagen` and `dynamips` to stop, after which it removes the GNU/Linux
+network devices it created.
 
 #### Debugging
 
