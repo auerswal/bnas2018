@@ -2,7 +2,8 @@
 
 I want to use the course to experiment with Ansible.
 
-* [Ansible Nested Groups](ansible-nested-groups) to avoid repetition in hosts files
+* [Ansible Nested Groups](ansible-nested-groups/) to avoid repetition in hosts files
+* [Ansible Filter Namespace](filter_namespace/) tests whether there is global namespace pollution by filter plugins defining functions outside of the `FilterModule` class
 
 ---
 

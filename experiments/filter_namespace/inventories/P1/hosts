@@ -1,0 +1,11 @@
+[OOB]
+P1-oob.lab.local ansible_host=192.168.254.1
+
+[P_OOB]
+P1-oob.lab.local
+
+[P1]
+P1.lab.local ansible_host=10.255.255.1
+
+[P]
+P1.lab.local

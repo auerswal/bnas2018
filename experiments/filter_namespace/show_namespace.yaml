@@ -1,0 +1,10 @@
+---
+- name: Get and print namespace of Ansible filter plugin
+  hosts: P1
+  tasks:
+    - name: Namespace of pollution.py
+      debug:
+        msg: "{{'unused'|pollution}}"
+    - name: Namespace of pollution2.py
+      debug:
+        msg: "{{'unused'|pollution2}}"
