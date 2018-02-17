@@ -18,11 +18,10 @@ $ wc */*/inventories/*/hosts
 
 ## Links to Hosts Files
 
-* [(full) lab from homework 1](../../hw1-the_lab/ansible/inventories/lab/hosts)
-* [(full) lab with nested groups](inventories/lab/hosts)
-
-* [half lab from homework 1](../../hw1-the_lab/ansible/inventories/half_lab/hosts)
-* [half lab with nested groups](inventories/half_lab/hosts)
+* [(full) lab from homework 1](../../hw1-the_lab/ansible/inventories/lab/hosts) inventory
+* [(full) lab with nested groups](inventories/lab/hosts) inventory
+* [half lab from homework 1](../../hw1-the_lab/ansible/inventories/half_lab/hosts) inventory
+* [half lab with nested groups](inventories/half_lab/hosts) inventory
 
 ---
 
