@@ -194,5 +194,5 @@ Connection to 192.168.254.32 closed by remote host.
 * [Ubuntu](https://www.ubuntu.com/)
 
 ---
---- | ---:
+
 [BNAS2018 GitHub repository](https://github.com/auerswal/bnas2018/) | [My home page](https://www.unix-ag.uni-kl.de/~auerswal/)
