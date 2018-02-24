@@ -48,6 +48,8 @@ program is used to create an image file in
 [PNG](http://www.libpng.org/pub/png/)
 format.
 
+---
+
 ## Interlude: Beating Ansible Installation into Shape
 
 As noted in [homework 1](../hw1-the_lab/) I decided to install Ansible
@@ -88,7 +90,7 @@ Cleaning up...
 Cleaning up...
 ```
 
-Manually importing Paramiko in a Python interpreter showed, that a
+Manually importing Paramiko in a Python interpreter showed that a
 dependency of Paramiko was not installed:
 
 ```
@@ -127,15 +129,15 @@ Cleaning up...
 ```
 
 This still did not work, and would come back to bite me later because
-that `enum` package was wrong (I needed `enum34` instead) but running
+that `enum` package was wrong (I needed `enum34` instead), but running
 the playbook now resulted in a Syslog message on the router:
 
 ```
 *Feb 24 20:35:45.903: %SSH-4-SSH2_UNEXPECTED_MSG: Unexpected message type has arrived. Terminating the connection from 192.168.254.42
 ```
 
-Thus Ansible can now use Paramiko to connect to (network) devices. The
-file `debug.log` showed a new Paramiko error:
+Thus Ansible could use Paramiko to connect to (network) devices. The file
+`debug.log` showed a new Paramiko error:
 
 ```
 2018-02-24 21:09:35,709 paramiko.transport     from cryptography.x509 import certificate_transparency
@@ -190,10 +192,11 @@ TypeError: 'type' object is not iterable
 ```
 
 Trying the respective code by hand in a Python interpreter showed that
-the `enum` package I installed was not used the way the `cryptography`
-package did. The solution was to ask Google, which answered that the
-Python package to provide an `Enum` similar to that introduced with Python
-3.4 was called `enum34`. Thus I removed `enum` and installed `enum34`:
+the `enum` package I installed was not compatible with the way the
+`cryptography` package used it. The solution was to ask Google, which
+answered that the Python package to provide an `Enum` similar to that
+introduced with Python 3.4 was called `enum34`. That seemed promising,
+thus I removed `enum` and installed `enum34`:
 
 ```
 (ansible)$ pip uninstall enum
@@ -212,7 +215,7 @@ Cleaning up...
 ```
 
 Now the Paramiko connection was setup correctly and the Ansible `ios_command`
-module worked as expected.
+module worked as expected. Back to the regularly scheduled program. ;-)
 
 ---
 
