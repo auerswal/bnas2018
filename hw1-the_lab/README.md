@@ -77,6 +77,15 @@ pip install cffi
 pip install ansible
 ```
 
+**Update 2018-02-24** The Ansible installation in the Python Virtual
+Environment was incomplete, and because of this the `ios_command` module
+did not work. To fix this I needed to install two additional Python
+packages (see the *Interlude* section from [homework 2](../hw2-reports/)):
+
+```
+pip install enum34 ipaddress
+```
+
 While in the Python Virtual Environment (`source ansible/bin/activate`),
 I can execute Ansible commands. The command `deactivate` is used to
 exit the Python Virtual Environment.
