@@ -46,6 +46,12 @@ If I go with the smaller lab, I will just omit the second plane.
 
 **Update 2018-02-11** I do use the Half Lab.
 
+The lab performance is actually CPU bound on my laptop. I experience
+a load of about 9 while the Half Lab is running, but still more than
+half the RAM is used as disk cache. Root cause is the use of Dynamips
+to emulate the routers, instead of using x86 based virtual devices on
+my x86 based laptop.
+
 ![half lab topology](half_lab.png)
 
 The virtual lab is connected to my GNU/Linux laptop via two bridges
