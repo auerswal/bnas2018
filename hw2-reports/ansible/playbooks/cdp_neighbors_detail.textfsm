@@ -1,0 +1,38 @@
+# TextFSM template to parse output of "show cdp neighbors detail"
+# Copyright (C) 2018 Erik Auerswald <auerswal@unix-ag.uni-kl.de>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Value NEIGHBOR ([-\w.]+)
+Value LOCAL_IF ([A-Za-z0-9./]+)
+Value IP_ADDR ((\d{1,3}\.){3}\d{1,3})
+Value MGMT_IP_ADDR ((\d{1,3}\.){3}\d{1,3})
+Value REMOTE_IF ([A-Za-z0-9./]+)
+
+Start
+  ^-+$$ -> NeighborEntry
+
+NeighborEntry
+  ^Device\sID:\s+${NEIGHBOR}
+  ^Entry\saddress -> NeighborAddress
+  ^Management\saddress -> NeighborManagementAddress
+  ^Interface:\s+${LOCAL_IF},\s+Port\sID[^:]*:\s+${REMOTE_IF}
+  ^-+$$ -> Record
+
+# extract just the first neighbor enrty address, TODO: extract all addresses
+NeighborAddress
+  ^\s+IP\saddress:\s+${IP_ADDR} -> NeighborEntry
+
+# extract just the first management address, TODO: extract all addresses
+NeighborManagementAddress
+  ^\s+IP\saddress:\s+${MGMT_IP_ADDR} -> NeighborEntry
