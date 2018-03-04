@@ -1,3 +1,6 @@
 *.swp
 hw1-the_lab/pre-staging/configs
 *.pyc
+hw2-reports/ansible/playbooks/cdp_data
+hw2-reports/ansible/playbooks/configs
+hw2-reports/ansible/playbooks/graph
