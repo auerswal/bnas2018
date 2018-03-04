@@ -1,0 +1,55 @@
+# Ansible playbook to configure virtual lab interfaces
+# Copyright (C) 2018 Erik Auerswald <auerswal@unix-ag.uni-kl.de>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+---
+- name: 'Configure interfaces in virtual lab'
+  hosts: OOB
+  connection: local
+  vars:
+    variables_dir: 'vars'
+    conf_dir: 'configs'
+    interfaces_file: 'half_lab-interfaces.yml'
+  tasks:
+    - name: 'Read interface data from file {{interfaces_file}}'
+      tags: [ 'build' ]
+      set_fact:
+        interfaces: >
+          {{lookup("file", variables_dir + "/" + interfaces_file)|from_yaml}}
+    - name: '+++ DEBUG +++ Print interfaces data structure'
+      tags: [ 'build_debug' ]
+      debug: var=interfaces
+    - name: 'Remove directory (with contents) for generated configurations'
+      tags: [ 'build' ]
+      run_once: True
+      file:
+        path: '{{conf_dir}}'
+        state: absent
+    - name: 'Create directory for generated configuration snippets'
+      tags: [ 'build' ]
+      run_once: True
+      file:
+        path: '{{conf_dir}}'
+        state: directory
+    - name: 'Create configuration snippets'
+      tags: [ 'build' ]
+      template:
+        src: 'ios-interfaces.j2'
+        dest: '{{conf_dir}}/{{inventory_hostname}}.conf'
+    - name: 'Configure router interfaces from configuration snippets'
+      tags: [ 'configure' ]
+      ios_config:
+        src: 'configs/{{inventory_hostname}}.conf'
+
+# vim:shiftwidth=2:expandtab:
