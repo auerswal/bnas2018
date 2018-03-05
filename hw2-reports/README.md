@@ -50,7 +50,7 @@ format.
 
 ---
 
-## Interlude 1: Beating Ansible Installation into Shape
+### Interlude 1: Beating Ansible Installation into Shape
 
 When I tried to use the `ios_command` module, it would fail with the error
 message:
@@ -59,6 +59,120 @@ Root cause was that `pip install ansible` did not install all requirements
 for the `ios_command` module, it missed the two Python packages `enum34` and
 `ipaddress`. For all the gory details see the separate
 [Interlude 1](interlude1.md) document.
+
+---
+
+### Ansible Playbook
+
+The solution approach provides a general structure for the Ansible playbook
+[`topology.yml`](playbooks/topology.yml). I have used `tags` to allow
+invoking parts of the playbook that belong together:
+
+* `get` retrieves CDP neighbor information from network devices and writes the
+   raw CLI output to a file
+* `parse` reads the raw CLI output from file and parses it into a data structure
+* `graph` uses the data structure from the `parse` step to generate a DOT
+   language description of the graph (`connectivity.gv`) and a PNG image
+   visualizing it (`connectivity.png`)
+* `debug_*` tags allow debugging of the respective steps
+
+---
+
+### Interlude 2: Lab Configuration
+
+The lab as configured for [homework 1](../hw1-the_lab) lacks interesting
+connectivity, thus I needed add some configuration. This is described in
+the separate [Interlude 2](interlude2.md) document.
+
+---
+
+### Playbook Description
+
+The following sections provide more information about the Ansible playbook
+to create a visualization of the network connectivity.
+
+#### One Play
+
+The playbook comprises one play with several tasks. The network devices used
+are specified at play level (the `OOB` group using the OOB interfaces, since
+in-band connectivity is not yet established). Additionally, use of the `local`
+connection is specified at play level, because all tasks are executed on
+`localhost`:
+
+* Files for intermediate steps and end result need to be created on the Ansible
+  host.
+* Ansible network modules are executed on the Ansible host, the module then
+  connects to the network device.
+
+A few variables to control where generated files are stored and how they are
+named are defined at play level as well.
+
+#### Tasks to Retrieve CDP Information
+
+Four tasks (with the tag `get`) are used to retrieve CDP neighbor information
+from the network devices. The first uses the `ios_command` module to issue
+`show cdp neighbors detail` on each router. This information is written to
+a text file in the fouth `get` task, after the second and thrid `get` tasks
+have deleted old CDP information and (re-)created the directory to store it in.
+
+#### Tasks to Parse CDP Information
+
+Two tasks (with tag `parse`) are used to parse the CDP data to fill a data
+structure that can be used in a Jinja2 template. The first reads the raw CDP
+output using the Ansible `lookup` plugin `file`. The second uses the
+`parse_cli_textfsm` filter with the
+[TextFSM](https://github.com/google/textfsm)
+[template](https://github.com/google/textfsm/wiki/TextFSM)
+[`cdp_neighbors_detail.textfsm`](ansible/playbooks/cdp_neighbors_detail.textfsm)
+to create a list with neighbor data.
+
+#### Tasks to Graph the Topology
+
+Four tasks (with tag `graph`) are used to generate an image that shows the
+network topology. The first two tasks prepare the output directory, i.e.
+they delete contents from previous playbook executions and (re-)create the
+output directory. The third task uses the Ansible `template` module to
+generate a DOT language description with the
+[`connectivity.j2`](ansible/playbooks/templates/connectivity.j2)
+Jinja2 template. The fourth task invokes the `dot` program using the Ansible
+`command` module to generate a PNG image of the connectivity graph.
+
+---
+
+### Network Topology Visualization
+
+The Ansible playbook [`topology.yml`](ansible/playbooks/topology.yml) generates
+to result files:
+
+1. The DOT language graph description [`connectivity.gv`](connectivity.gv)
+2. The PNG image [`connectivity.png`](connectivity.png) of the topology
+
+#### Topology Image
+
+![Generated Topology Image](connectivity.png)
+
+---
+
+## References
+
+* Ansible Filters
+  * [`parse_cli`](http://docs.ansible.com/ansible/latest/playbooks_filters.html#id20)
+  * [`parse_cli_textfsm`](http://docs.ansible.com/ansible/latest/playbooks_filters.html#id20)
+* [Ansible Lookup Plugins](http://docs.ansible.com/ansible/latest/playbooks_lookups.html)
+* Ansible Modules
+  * [`ios_command`](http://docs.ansible.com/ansible/latest/ios_command_module.html)
+  * [`ios_config`](https://docs.ansible.com/ansible/latest/ios_config_module.html)
+* [Ansible Templating](https://docs.ansible.com/ansible/latest/playbooks_templating.html)
+* [DOT language](https://graphviz.gitlab.io/_pages/doc/info/lang.html)
+* [dot program](https://graphviz.gitlab.io/_pages/pdf/dotguide.pdf)
+* [Graphviz](http://graphviz.org/)
+* [Jinja2](http://jinja.pocoo.org/)
+* [PNG](http://www.libpng.org/pub/png/)
+* [Prescriptive Topology Manager](https://github.com/CumulusNetworks/ptm)
+* ([PTM Documentation](https://docs.cumulusnetworks.com/display/DOCS/Prescriptive+Topology+Manager+-+PTM))
+* [TextFSM](https://github.com/google/textfsm)
+* [TextFSM template](https://github.com/google/textfsm/wiki/TextFSM)
+* [YAML](http://yaml.org/)
 
 ---
 

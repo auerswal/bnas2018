@@ -1,0 +1,21 @@
+strict graph network_connectivity {
+    "P1.lab.local" [shape=record,label="P1.lab.local|<FastEthernet2/0> Fa2/0|<FastEthernet6/0> Fa6/0|<FastEthernet1/0> Fa1/0"];
+    "P2.lab.local" [shape=record,label="P2.lab.local|<FastEthernet2/0> Fa2/0|<FastEthernet1/0> Fa1/0"];
+    "PE1.lab.local" [shape=record,label="PE1.lab.local|<Ethernet6/1> Et6/1|<FastEthernet2/0> Fa2/0"];
+    "PE2.lab.local" [shape=record,label="PE2.lab.local|<Ethernet6/2> Et6/2|<FastEthernet2/0> Fa2/0"];
+    "RR1.lab.local" [shape=record,label="RR1.lab.local|<FastEthernet6/0> Fa6/0"];
+    "CE1.lab.local" [shape=record,label="CE1.lab.local|<Ethernet1/0> Et1/0"];
+    "CE2.lab.local" [shape=record,label="CE2.lab.local|<Ethernet1/0> Et1/0"];
+    "P1.lab.local":"FastEthernet2/0" -- "PE1.lab.local":"FastEthernet2/0";
+    "P1.lab.local":"FastEthernet6/0" -- "RR1.lab.local":"FastEthernet6/0";
+    "P1.lab.local":"FastEthernet1/0" -- "P2.lab.local":"FastEthernet1/0";
+    "P2.lab.local":"FastEthernet2/0" -- "PE2.lab.local":"FastEthernet2/0";
+    "P2.lab.local":"FastEthernet1/0" -- "P1.lab.local":"FastEthernet1/0";
+    "PE1.lab.local":"Ethernet6/1" -- "CE1.lab.local":"Ethernet1/0";
+    "PE1.lab.local":"FastEthernet2/0" -- "P1.lab.local":"FastEthernet2/0";
+    "PE2.lab.local":"Ethernet6/2" -- "CE2.lab.local":"Ethernet1/0";
+    "PE2.lab.local":"FastEthernet2/0" -- "P2.lab.local":"FastEthernet2/0";
+    "RR1.lab.local":"FastEthernet6/0" -- "P1.lab.local":"FastEthernet6/0";
+    "CE1.lab.local":"Ethernet1/0" -- "PE1.lab.local":"Ethernet6/1";
+    "CE2.lab.local":"Ethernet1/0" -- "PE2.lab.local":"Ethernet6/2";
+}
