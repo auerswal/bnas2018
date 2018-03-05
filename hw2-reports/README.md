@@ -35,7 +35,7 @@ I intend to use the
 [`ios_command`](http://docs.ansible.com/ansible/latest/ios_command_module.html)
 module to collect CDP data from the virtual routers. The output is then parsed
 by an Ansible filter (one of the
-[`parse_cli` or `parse_cli_textfsm`](http://docs.ansible.com/ansible/latest/playbooks_filters.html#id20)
+[`parse_cli` or `parse_cli_textfsm`](http://docs.ansible.com/ansible/latest/playbooks_filters.html#network-cli-filters)
 filters) into variables. The
 variables are used together with a
 [jinja2 template](https://docs.ansible.com/ansible/latest/playbooks_templating.html)
@@ -65,7 +65,7 @@ for the `ios_command` module, it missed the two Python packages `enum34` and
 ### Ansible Playbook
 
 The solution approach provides a general structure for the Ansible playbook
-[`topology.yml`](playbooks/topology.yml). I have used `tags` to allow
+[`topology.yml`](ansible/playbooks/topology.yml). I have used `tags` to allow
 invoking parts of the playbook that belong together:
 
 * `get` retrieves CDP neighbor information from network devices and writes the
@@ -156,8 +156,8 @@ to result files:
 ## References
 
 * Ansible Filters
-  * [`parse_cli`](http://docs.ansible.com/ansible/latest/playbooks_filters.html#id20)
-  * [`parse_cli_textfsm`](http://docs.ansible.com/ansible/latest/playbooks_filters.html#id20)
+  * [`parse_cli`](http://docs.ansible.com/ansible/latest/playbooks_filters.html#network-cli-filters)
+  * [`parse_cli_textfsm`](http://docs.ansible.com/ansible/latest/playbooks_filters.html#network-cli-filters)
 * [Ansible Lookup Plugins](http://docs.ansible.com/ansible/latest/playbooks_lookups.html)
 * Ansible Modules
   * [`ios_command`](http://docs.ansible.com/ansible/latest/ios_command_module.html)
@@ -169,7 +169,7 @@ to result files:
 * [Jinja2](http://jinja.pocoo.org/)
 * [PNG](http://www.libpng.org/pub/png/)
 * [Prescriptive Topology Manager](https://github.com/CumulusNetworks/ptm)
-* ([PTM Documentation](https://docs.cumulusnetworks.com/display/DOCS/Prescriptive+Topology+Manager+-+PTM))
+* [PTM Documentation](https://docs.cumulusnetworks.com/display/DOCS/Prescriptive+Topology+Manager+-+PTM)
 * [TextFSM](https://github.com/google/textfsm)
 * [TextFSM template](https://github.com/google/textfsm/wiki/TextFSM)
 * [YAML](http://yaml.org/)
