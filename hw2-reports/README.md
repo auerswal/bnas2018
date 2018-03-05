@@ -164,6 +164,7 @@ to result files:
   * [`ios_config`](https://docs.ansible.com/ansible/latest/ios_config_module.html)
 * [Ansible Templating](https://docs.ansible.com/ansible/latest/playbooks_templating.html)
 * [DOT language](https://graphviz.gitlab.io/_pages/doc/info/lang.html)
+* [DOT language (Wikipedia)](https://en.wikipedia.org/wiki/DOT_%28graph_description_language%29)
 * [dot program](https://graphviz.gitlab.io/_pages/pdf/dotguide.pdf)
 * [Graphviz](http://graphviz.org/)
 * [Jinja2](http://jinja.pocoo.org/)
