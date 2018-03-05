@@ -19,7 +19,6 @@
   connection: local
   vars:
     cdp_info_dir: 'cdp_data'
-    topology_prefix: 'topology'
     connectivity_prefix: 'connectivity'
     out_dir: 'graph'
   tasks:
