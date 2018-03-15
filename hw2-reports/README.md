@@ -172,7 +172,8 @@ to result files:
 * [Prescriptive Topology Manager](https://github.com/CumulusNetworks/ptm)
 * [PTM Documentation](https://docs.cumulusnetworks.com/display/DOCS/Prescriptive+Topology+Manager+-+PTM)
 * [TextFSM](https://github.com/google/textfsm)
-* [TextFSM template](https://github.com/google/textfsm/wiki/TextFSM)
+* [TextFSM documentation](https://github.com/google/textfsm/wiki/TextFSM)
+* [TextFSM examples](https://github.com/google/textfsm/wiki/Code-Lab)
 * [YAML](http://yaml.org/)
 
 ---
