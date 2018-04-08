@@ -54,7 +54,7 @@ format.
 
 When I tried to use the `ios_command` module, it would fail with the error
 message:
-`unable to open shell. Please see: https://docs.ansible.com/ansible/network_debug_troubleshooting.html#unable-to-open-shell`
+`unable to open shell. Please see: https://docs.ansible.com/ansible/network_debug_troubleshooting.html#unable-to-open-shell`.
 Root cause was that `pip install ansible` did not install all requirements
 for the `ios_command` module, it missed the two Python packages `enum34` and
 `ipaddress`. For all the gory details see the separate
@@ -112,7 +112,7 @@ named are defined at play level as well.
 Four tasks (with the tag `get`) are used to retrieve CDP neighbor information
 from the network devices. The first uses the `ios_command` module to issue
 `show cdp neighbors detail` on each router. This information is written to
-a text file in the fouth `get` task, after the second and thrid `get` tasks
+a text file in the fouth `get` task, after the second and third `get` tasks
 have deleted old CDP information and (re-)created the directory to store it in.
 
 #### Tasks to Parse CDP Information
