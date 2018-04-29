@@ -4,6 +4,7 @@ workingdir = /home/auerswald/work/bnas2018/dyna_work_dir
 [[7200]]
 image = /home/auerswald/work/cisco_lab/c7200-advipservicesk9-mz.152-4.S5.bin
 idlepc = 0x6318e57c
+mmap = False
 
 [[ROUTER P1]]
 console = 2000
