@@ -8,10 +8,10 @@ to deploy the service using automation.
 This hands-on assignment is divided into several parts:
 
 1. List attributes that need to be described by the data model.
-1. Select the appropriate data store(s).
-1. Create a suitable data model.
-1. Document the data model to enable others to use it.
-1. Validate the data model by creating (partial) device configurations.
+2. Select the appropriate data store(s).
+3. Create a suitable data model.
+4. Document the data model to enable others to use it.
+5. Validate the data model by creating (partial) device configurations.
 
 ## Network Attributes
 
@@ -33,6 +33,7 @@ Thus the data model for the L3VPN comprises the following elements:
   * Domain name
   * IGP
   * network management system IP
+  * AS number
 * Transport network
   * Network nodes (P, PE, BGP route reflectors)
     * name
@@ -50,7 +51,7 @@ Thus the data model for the L3VPN comprises the following elements:
 * L3VPN service
   * Customer ID
   * VPN ID
-  * RT / RD
+    * RT / RD determined from AS number and VPN ID
   * Access Circuits
     * PE interfaces
     * IP networks
