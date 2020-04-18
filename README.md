@@ -14,6 +14,15 @@ in the [experiments](experiments/) folder.
 
 * [Experiments](experiments/) - Ansible notes and experiments
 
+In my opinion, proper use of automation leads to consistent results.
+Consistent results are a prerequisite for consistent implementation quality.
+Consistent implementation quality is a prerequisite for high implementation
+quality.
+To me, the reason to use automation is a goal of high quality.
+Realizing a high quality implementation requires proper use of automation.
+Consistentlty achieved high implementation quality provides a basis to
+move fast without breaking things.
+
 ---
 
 [My GitHub user page](https://github.com/auerswal) | [My home page](https://www.unix-ag.uni-kl.de/~auerswal/)
