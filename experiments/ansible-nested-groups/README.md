@@ -2,10 +2,17 @@
 
 Nested groups can be used to define hosts and groups in Ansible, instead
 of repeating the host names under group headings as I have done for
-[homework 1](../../hw1-the_lab/). While this did not reduce the number of
-lines, it reduced the amount of repetition and the number of characters
-for defining the inventory. Thus using nested groups seems beneficial
-in reducing the likelihood of errors due to typos.
+[homework 1](../../hw1-the_lab/).
+
+With *nested groups*, the hosts are defined inside what could be called
+*leaf groups*.  These *leaf groups* comprise only hosts, and each host
+is part of only one *leaf group*.  All *non-leaf groups* comprise only
+groups, not hosts.
+
+While this did not reduce the number of lines, it reduced the amount of
+repetition and the number of characters for defining the inventory. Thus
+using nested groups seems beneficial in reducing the likelihood of errors
+due to typos.
 
 ```
 $ wc */*/inventories/*/hosts
