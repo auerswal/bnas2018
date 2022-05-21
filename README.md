@@ -14,6 +14,8 @@ in the [experiments](experiments/) folder.
 
 * [Experiments](experiments/) - Ansible notes and experiments
 
+## Motivation to Use Network Automation
+
 In my opinion, proper use of automation leads to consistent results.
 Consistent results are a prerequisite for consistent implementation quality.
 Consistent implementation quality is a prerequisite for high implementation
